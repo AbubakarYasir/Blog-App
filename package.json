@@ -1,0 +1,32 @@
+{
+  "name": "blog-app",
+  "version": "1.0.0",
+  "description": "a Simple Blog App using Express.js and EJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbubakarYasir/Blog-App.git"
+  },
+  "keywords": [
+    "Blog",
+    "Web",
+    "App",
+    "Website",
+    "Development",
+    "Express.js",
+    "EJS"
+  ],
+  "author": "AbubakarYasir",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AbubakarYasir/Blog-App/issues"
+  },
+  "homepage": "https://github.com/AbubakarYasir/Blog-App#readme",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "express": "^4.17.3"
+  }
+}
