@@ -10,6 +10,10 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.get("/", function (req, res) {
+    res.render("Hello, It's Abubakar Yasir");
+});
+
 app.listen(port, function () {
     console.log("Server is started at http://localhost:" + port);
 });
