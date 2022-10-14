@@ -23,16 +23,25 @@ app.use(express.static("public"));
 // Connect to MongoDB
 mongoose.connect("mongodb://localhost:27017/blogDB", { useNewUrlParser: true });
 
+// Schema for Posts
+const postSchema = {
+  title: String,
+  content: String,
+};
+
+// Model for Posts
+const Post = mongoose.model("Post", postSchema);
+
 // Home Page (Request)
 app.get("/", function (req, res) {
-  res.render("home", {
-    startingContent: homeStartingContent,
-    posts: posts,
+  // Find Posts in Database
+  Post.find({}, function (err, posts) {
+    res.render("home", {
+      startingContent: homeStartingContent,
+      posts: posts,
+    });
   });
 });
-
-// Posts Page based on thier ID
-app.get("/posts/:postName", function (req, res) {});
 
 // Compose Page (Request)
 app.get("/compose", function (req, res) {
@@ -45,9 +54,27 @@ app.post("/compose", function (req, res) {
     title: req.body.postTitle,
     body: req.body.postBody,
   };
-  posts.save(post);
-  res.redirect("/");
+  //   Save New Posts when Posted
+  post.save(function (err) {
+    if (!err) {
+      res.redirect("/");
+    }
+  });
 });
+
+// Posts Page based on thier ID
+app.get("/posts/:postName", function (req, res) {
+  // Fetch Requested Post ID
+  const requestedPostId = req.params.postId;
+  // Find and Render the Requested Post
+  Post.findOne({ _id: requestedPostId }, function (err, posts) {
+    res.render("post", {
+      title: post.title,
+      content: post.content,
+    });
+  });
+});
+
 // About Page (Request)
 app.get("/about", function (req, res) {
   res.render("about", {
