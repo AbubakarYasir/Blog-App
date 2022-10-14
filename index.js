@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
-// Use Default Port or 80 (for heroku)
+// Use Default Port or 80 (for heroku)post
 const port = process.env.PORT || 80;
 
 // Default Data for Pages
@@ -50,10 +50,10 @@ app.get("/compose", function (req, res) {
 
 // Compose Page "Post" (Request)
 app.post("/compose", function (req, res) {
-  const post = {
+  const post = new Post({
     title: req.body.postTitle,
-    body: req.body.postBody,
-  };
+    content: req.body.postBody,
+  });
   //   Save New Posts when Posted
   post.save(function (err) {
     if (!err) {
@@ -63,11 +63,11 @@ app.post("/compose", function (req, res) {
 });
 
 // Posts Page based on thier ID
-app.get("/posts/:postName", function (req, res) {
+app.get("/posts/:postId", function (req, res) {
   // Fetch Requested Post ID
   const requestedPostId = req.params.postId;
   // Find and Render the Requested Post
-  Post.findOne({ _id: requestedPostId }, function (err, posts) {
+  Post.findOne({ _id: requestedPostId }, function (err, post) {
     res.render("post", {
       title: post.title,
       content: post.content,
