@@ -2,6 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+// Config for Env Variables
+dotenv.config();
+
 // Use Default Port or 80 (for heroku)post
 const port = process.env.PORT || 80;
 
@@ -21,7 +25,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static("public"));
 
 // Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/blogDB", { useNewUrlParser: true });
+mongoose.connect(
+  "mongodb+srv://admin-derek:" +
+    `${process.env.MONGO_PASS}` +
+    "@blog.z743bx8.mongodb.net/blogDB",
+  { useNewUrlParser: true }
+);
 
 // Schema for Posts
 const postSchema = {
